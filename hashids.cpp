@@ -152,14 +152,14 @@ std::string Hashids::decodeHex(const std::string &input) const {
 
 uint64_t Hashids::_unhash(const std::string &input,
                           const std::string &alphabet) const {
-  uint64_t output = 0;
-  for (std::string::size_type i = 0; i < input.size(); ++i) {
-    char c = input[i];
-    std::string::size_type pos = alphabet.find(c);
-    output += pos * std::pow(alphabet.size(), input.size() - i - 1);
+  uint64_t number = 0;
+  for (const char &c : input) {
+    std::string::size_type position = alphabet.find(c);
+    number *= alphabet.size();
+    number += position;
   };
 
-  return output;
+  return number;
 }
 
 void Hashids::_ensure_length(std::string &output, std::string &alphabet,
